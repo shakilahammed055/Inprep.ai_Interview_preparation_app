@@ -1,15 +1,19 @@
+// ignore_for_file: unused_local_variable
+
 import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:inprep_ai/core/services/shared_preferences_helper.dart';
 import 'package:inprep_ai/core/urls/endpint.dart';
-import 'package:inprep_ai/features/personalized_interviewers/view/personalized_interviewer_screen.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/about_me_contrller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/education_controller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/experience_controller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/models/resume_model.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:inprep_ai/features/profile_setup.dart/models/update_resume.dart'
+    show Updateresume, updateresumeFromJson;
+import 'package:inprep_ai/features/profile_setup.dart/screen.dart/genarated_about_me.dart';
 
 // Assume these controllers are passed or accessible:
 final AboutMeController aboutMeController = Get.find();
@@ -40,35 +44,32 @@ Future<void> saveResume() async {
     );
 
     // Prepare technicalSkills
-    List<String> technicalSkills =
-        aboutMeController.skills
-            .where(
-              (skill) =>
-                  experienceController.selectedSkills.contains(skill.name),
-            )
-            .map((e) => e.name ?? '')
-            .toList();
+    List<String> technicalSkills = aboutMeController.skills
+        .where(
+          (skill) => experienceController.selectedSkills.contains(skill.name),
+        )
+        .map((e) => e.name ?? '')
+        .toList();
     debugPrint('DEBUG: Technical skills prepared: $technicalSkills');
 
     // Prepare Experience
-    List<Experience> experiences =
-        experienceController.experienceForms.map((formId) {
-          final controllers = experienceController.formControllers[formId]!;
-          final country = controllers.countryModel.initialCountry?.name ?? '';
-          debugPrint('DEBUG: Processing experience form ID: $formId');
-          debugPrint('DEBUG: Experience country: $country');
+    List<Experience> experiences = experienceController.experienceForms.map((formId) {
+      final controllers = experienceController.formControllers[formId]!;
+      final country = controllers.countryModel.initialCountry?.name ?? '';
+      debugPrint('DEBUG: Processing experience form ID: $formId');
+      debugPrint('DEBUG: Experience country: $country');
 
-          return Experience(
-            jobTitle: controllers.jobTitleController.text,
-            company: controllers.employerNameController.text,
-            city: controllers.cityController.text,
-            country: country,
-            responsibilities: controllers.responsibilitiesController.text,
-            skills: experienceController.selectedSkills.toList(),
-            startDate: experienceController.selectDate.value,
-            endDate: experienceController.selectDate1.value,
-          );
-        }).toList();
+      return Experience(
+        jobTitle: controllers.jobTitleController.text,
+        company: controllers.employerNameController.text, // Fixed typo
+        city: controllers.cityController.text,
+        country: country,
+        responsibilities: controllers.responsibilitiesController.text,
+        skills: experienceController.selectedSkills.toList(),
+        startDate: experienceController.selectDate.value,
+        endDate: experienceController.selectDate1.value,
+      );
+    }).toList();
     debugPrint(
       'DEBUG: Experiences prepared: ${experiences.map((e) => {'jobTitle': e.jobTitle, 'company': e.company, 'city': e.city, 'country': e.country, 'responsibilities': e.responsibilities, 'skills': e.skills, 'startDate': e.startDate, 'endDate': e.endDate}).toList()}',
     );
@@ -100,19 +101,18 @@ Future<void> saveResume() async {
       summary: aboutMeController.summaryController.text,
       address: address,
       technicalSkills: technicalSkills,
-      experience:
-          experiences.isNotEmpty
-              ? experiences.first
-              : Experience(
-                jobTitle: '',
-                company: '',
-                city: '',
-                country: '',
-                responsibilities: '',
-                skills: [],
-                startDate: '',
-                endDate: '',
-              ),
+      experience: experiences.isNotEmpty
+          ? experiences.first
+          : Experience(
+              jobTitle: '',
+              company: '', // Fixed typo
+              city: '',
+              country: '',
+              responsibilities: '',
+              skills: [],
+              startDate: '',
+              endDate: '',
+            ),
       education: educationList,
     );
     debugPrint(
@@ -129,7 +129,7 @@ Future<void> saveResume() async {
     final response = await http.put(
       url,
       headers: {
-        'Authorization': accessToken, 
+        'Authorization': accessToken,
         'Content-Type': 'application/json',
       },
       body: jsonEncode(resumeData.toJson()),
@@ -143,15 +143,22 @@ Future<void> saveResume() async {
 
     if (response.statusCode == 200) {
       debugPrint(
-        'DEBUG: Resume updated successfully, navigating to PersonalizedInterviewerScreen',
+        'DEBUG: Resume updated successfully, navigating to GenaratedAboutMe',
       );
+      Updateresume updateresume = updateresumeFromJson(response.body);
       EasyLoading.showSuccess('Resume updated successfully');
-      Get.to(PersonalizedInterviewerScreen());
+      // Navigate to GenaratedAboutMe with the Updateresume object
+      Get.offAll(
+        GenaratedAboutMe(),
+        arguments: updateresume, // Pass the Updateresume object
+      );
     } else {
       debugPrint(
         'DEBUG: Failed to update resume - Status: ${response.statusCode}, Body: ${response.body}',
       );
-      EasyLoading.showError('Failed to update resume: please Fill all the fields');
+      EasyLoading.showError(
+        'Failed to update resume: please Fill all the fields',
+      );
     }
   } catch (e) {
     debugPrint('DEBUG: Error caught in saveResume: $e');
@@ -161,4 +168,3 @@ Future<void> saveResume() async {
     EasyLoading.dismiss();
   }
 }
-

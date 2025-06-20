@@ -15,7 +15,7 @@ class AvailableMockInterviews extends StatelessWidget {
     return Column(
       children: [
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.4,
+          height: MediaQuery.of(context).size.height * 0.38,
           child: Obx(() {
             if (controller.isLoading.value) {
               // Show shimmer while loading
@@ -77,13 +77,13 @@ class AvailableMockInterviews extends StatelessWidget {
                 },
               );
             } else {
-              // Show list once data is loaded
+              // Show filtered list once data is loaded
               return ListView.builder(
                 scrollDirection: Axis.vertical,
                 padding: EdgeInsets.zero,
-                itemCount: controller.allInterviews.length,
+                itemCount: controller.filteredInterviews.length, // Use filteredInterviews
                 itemBuilder: (context, index) {
-                  var availablemockinterviews = controller.allInterviews[index];
+                  var availablemockinterviews = controller.filteredInterviews[index];
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 12),
                     child: GestureDetector(
@@ -156,6 +156,7 @@ class AvailableMockInterviews extends StatelessWidget {
             }
           }),
         ),
+        
       ],
     );
   }

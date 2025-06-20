@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -10,19 +9,50 @@ import 'package:inprep_ai/features/interview/interview_lists/moddel/incomplete_i
 import 'package:inprep_ai/features/interview/interview_lists/moddel/interview_model.dart' show Interview, MockInterviewResponse;
 
 class InterviewListController extends GetxController {
-  var searchController = TextEditingController(); 
+  var searchController = TextEditingController();
+  var isLoading = false.obs;
+  var allInterviews = <Interview>[].obs;
+  var suggestedInterviews = <Interview>[].obs;
+  var interviewList = <IncompleteInterview>[].obs;
+  var filteredInterviews = <Interview>[].obs;
+  var searchQuery = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
     fetchMockInterviews();
-    fetchIncompleteInterviews(); 
+    fetchIncompleteInterviews();
+    // Add listener to search controller
+    searchController.addListener(() {
+      searchQuery.value = searchController.text;
+      filterInterviews();
+    });
   }
 
+  @override
+  void onClose() {
+    // Remove listener and dispose controller
+    searchController.removeListener(() {
+      searchQuery.value = searchController.text;
+      filterInterviews();
+    });
+    searchController.dispose();
+    super.onClose();
+  }
 
-  var isLoading = false.obs;
-  var allInterviews = <Interview>[].obs;
-  var suggestedInterviews = <Interview>[].obs;
+  // Filter interviews based on search query
+  void filterInterviews() {
+    final query = searchQuery.value.toLowerCase();
+    if (query.isEmpty) {
+      filteredInterviews.assignAll(allInterviews);
+    } else {
+      filteredInterviews.assignAll(
+        allInterviews.where((interview) =>
+            interview.interviewName.toLowerCase().contains(query) ||
+            interview.description.toLowerCase().contains(query)).toList(),
+      );
+    }
+  }
 
   Future<void> fetchMockInterviews() async {
     try {
@@ -39,7 +69,7 @@ class InterviewListController extends GetxController {
 
       if (kDebugMode) {
         print("The interviews are: ${response.body}");
-      } 
+      }
 
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
@@ -47,6 +77,7 @@ class InterviewListController extends GetxController {
 
         allInterviews.assignAll(mockResponse.body.allInterviews);
         suggestedInterviews.assignAll(mockResponse.body.suggested);
+        filteredInterviews.assignAll(mockResponse.body.allInterviews);
       } else {
         Get.snackbar("Error", "Failed to load interviews: ${response.statusCode}");
       }
@@ -57,10 +88,7 @@ class InterviewListController extends GetxController {
     }
   }
 
-
-   var interviewList = <IncompleteInterview>[].obs;
-
-   Future<void> fetchIncompleteInterviews() async {
+  Future<void> fetchIncompleteInterviews() async {
     try {
       isLoading.value = true;
       final String? token = await SharedPreferencesHelper.getAccessToken();
@@ -73,8 +101,7 @@ class InterviewListController extends GetxController {
         },
       );
 
-
-      debugPrint("The imcomplete interviews are: ${response.body}");
+      debugPrint("The incomplete interviews are: ${response.body}");
 
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);

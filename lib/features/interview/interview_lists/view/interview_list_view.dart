@@ -1,22 +1,23 @@
+// ignore_for_file: prefer_const_constructors_in_immutables
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inprep_ai/core/common/styles/global_text_style.dart'
-    show getTextStyle;
+import 'package:inprep_ai/core/common/styles/global_text_style.dart' show getTextStyle;
 import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/interview/interview_lists/controller/interview_list_controller.dart';
-import 'package:inprep_ai/features/interview/interview_lists/lists/available_mock_interviews.dart'
-    show AvailableMockInterviews;
-import 'package:inprep_ai/features/interview/interview_lists/lists/incomplete_sessions.dart'
-    show IncompleteSessions;
+import 'package:inprep_ai/features/interview/interview_lists/lists/available_mock_interviews.dart' show AvailableMockInterviews;
+import 'package:inprep_ai/features/interview/interview_lists/lists/incomplete_sessions.dart' show IncompleteSessions;
 import 'package:inprep_ai/features/interview/interview_lists/widgets/search_textfield.dart';
 
 class InterviewListView extends StatelessWidget {
   InterviewListView({super.key});
 
-  final InterviewListController controller = Get.put(InterviewListController());
-
   @override
   Widget build(BuildContext context) {
+    // Initialize controller lazily
+    Get.lazyPut(() => InterviewListController());
+
+    final InterviewListController controller = Get.find<InterviewListController>();
+
     return Scaffold(
       backgroundColor: AppColors.primaryBackground,
       body: Padding(
@@ -34,22 +35,18 @@ class InterviewListView extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 20),
-
-              // ✅ Conditionally show IncompleteSessions
               Obx(() {
                 if (controller.interviewList.isNotEmpty) {
                   return Column(
-                    children:  [
+                    children: [
                       IncompleteSessions(),
-                       
                       SizedBox(height: 20),
                     ],
                   );
                 } else {
-                  return const SizedBox.shrink(); // don't render anything
+                  return const SizedBox.shrink();
                 }
               }),
-
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -59,6 +56,7 @@ class InterviewListView extends StatelessWidget {
               ),
               const SizedBox(height: 15),
               AvailableMockInterviews(),
+              SizedBox(height: 20),
             ],
           ),
         ),

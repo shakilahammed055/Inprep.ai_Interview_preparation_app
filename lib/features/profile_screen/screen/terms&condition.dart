@@ -127,7 +127,7 @@ class Termscondition extends StatelessWidget {
                     isVisible
                         ? Icons.arrow_drop_up_outlined
                         : Icons.arrow_drop_down_outlined,
-                    color: Colors.black.withOpacity(0.4),
+                    color: Colors.black.withValues(alpha:  0.4),
                     size: 24,
                   ),
                   onPressed: () => controller.toggleVisibility(title),

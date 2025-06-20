@@ -1,4 +1,3 @@
-
 // ignore_for_file: must_be_immutable
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -8,7 +7,9 @@ import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart';
 import 'package:inprep_ai/core/utils/constants/image_path.dart';
 import 'package:inprep_ai/features/home_screen/controller/home_screen_controller.dart';
-import 'package:inprep_ai/features/job_screens/screens/myjob.dart' show MyJobsScreen;
+import 'package:inprep_ai/features/interview/interview_lists/view/interview_list_view.dart';
+import 'package:inprep_ai/features/job_screens/screens/myjob.dart'
+    show MyJobsScreen;
 import 'package:inprep_ai/features/notification/screen/notification_screen.dart';
 import 'package:inprep_ai/features/notification/widgets/notification_badge.dart';
 import 'package:inprep_ai/features/progress_screen/controller/Progress_screen_controller.dart';
@@ -18,7 +19,9 @@ import 'package:inprep_ai/features/progress_screen/widgets/placeholder_chart.dar
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   HomeScreenController homeScreenController = Get.put(HomeScreenController());
-  ProgressScreenController progressScreenController = Get.put(ProgressScreenController());
+  ProgressScreenController progressScreenController = Get.put(
+    ProgressScreenController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +83,8 @@ class HomeScreen extends StatelessWidget {
                 );
               } else {
                 final name =
-                    homeScreenController.userInfo.value?.data?.name ?? "Nolan Saris";
+                    homeScreenController.userInfo.value?.data?.name ??
+                    "Nolan Saris";
                 return Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -101,7 +105,7 @@ class HomeScreen extends StatelessWidget {
             onTap: () {
               // Reset the notification count when the user taps on the notification icon
               homeScreenController.resetNotificationCount();
-              
+
               // Navigate to the NotificationScreen
               Get.to(() => NotificationScreen());
             },
@@ -156,7 +160,9 @@ class HomeScreen extends StatelessWidget {
               SizedBox(height: 8),
               Image.asset(ImagePath.interview, height: 200, width: 200),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Get.to(InterviewListView());
+                },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -226,8 +232,6 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 );
-
-                
               }),
 
               SizedBox(height: 48),
