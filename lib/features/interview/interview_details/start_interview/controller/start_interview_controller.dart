@@ -28,6 +28,10 @@ class StartInterviewController extends GetxController {
   var interviewId = "".obs;
   var lastResponse = {}.obs;
 
+  var selectedExpectations = <String>[].obs;
+  var difficulty = ''.obs;
+  var questionType = ''.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -45,9 +49,16 @@ class StartInterviewController extends GetxController {
     id.value = args[0];
     interviewId.value = args[1];
 
+    selectedExpectations.value = List<String>.from(args[2]);
+    difficulty.value = args[3];
+    questionType.value = args[4];
+
     if (kDebugMode) {
       print("The id is: ${id.value}");
       print("The interviewId is: ${interviewId.value}");
+      print("Selected Expectations: ${selectedExpectations.join(', ')}");
+      print("Difficulty: ${difficulty.value}");
+      print("Question Type: ${questionType.value}");
     }
     fetchQuestions();
     initializeCamera();
@@ -71,56 +82,67 @@ class StartInterviewController extends GetxController {
   var history = <Map<String, dynamic>>[].obs;
 
   Future<void> fetchQuestions() async {
-    isLoading.value = true;
-    try {
-      String? token = await SharedPreferencesHelper.getAccessToken();
-      if (token == null) {
-        Get.snackbar('Error', 'Token is null');
-        return;
-      }
-      final response = await http.get(
-        Uri.parse(
-          'https://ai-interview-server-s2a5.onrender.com/api/v1/interview/genarateQuestionSet_ByAi?questionBank_id=${id.value}',
-        ),
-        headers: {'Authorization': token, 'Content-Type': 'application/json'},
-      );
-
-      debugPrint("The response for question bank is: ${response.body}");
-
-      if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final remainingQuestions = data['body']['remainingQuestions'];
-        final historyData = data['body']['history'];
-
-        if (remainingQuestions != null) {
-          questions.value = List<Map<String, dynamic>>.from(remainingQuestions);
-
-         
-        } else {
-          questions.clear();
-        }
-        
-
-        // Store history if available
-        if (historyData != null) {
-          history.value = List<Map<String, dynamic>>.from(historyData);
-          
-        } else {
-          history.clear();
-          debugPrint("No history found in the response.");
-        }
-
-      } else {
-        Get.snackbar('Credit Over', 'Please buy more credit');
-      }
-    } catch (e) {
-      if (kDebugMode) {
-        print("The exception is $e");
-      } 
-    } finally {
-      isLoading.value = false;
+  isLoading.value = true;
+  try {
+    String? token = await SharedPreferencesHelper.getAccessToken();
+    if (token == null) {
+      Get.snackbar('Error', 'Token is null');
+      return;
     }
+
+    final requestBody = {
+  "question_Type": questionType.value,
+  "difficulty_level": difficulty.value,
+  "what_to_expect": selectedExpectations.toList(),
+};
+
+print("The JSON body being sent for fetching question bank: ${jsonEncode(requestBody)}");
+
+    final response = await http.post(
+      Uri.parse(
+        '${Urls.baseUrl}/interview/genarateQuestionSet_ByAi?questionBank_id=${id.value}',
+      ),
+      headers: {
+        'Authorization': token,
+        'Content-Type': 'application/json',
+      },
+      body: jsonEncode(requestBody),
+    );
+
+
+    print("The status code for the fetching question bank is: ${response.statusCode}");
+
+    debugPrint("The response for question bank is: ${response.body}");
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      final remainingQuestions = data['body']['remainingQuestions'];
+      final historyData = data['body']['history'];
+
+      if (remainingQuestions != null) {
+        questions.value = List<Map<String, dynamic>>.from(remainingQuestions);
+      } else {
+        questions.clear();
+      }
+
+      if (historyData != null) {
+        history.value = List<Map<String, dynamic>>.from(historyData);
+      } else {
+        history.clear();
+        debugPrint("No history found in the response.");
+      }
+    } else {
+      Get.snackbar('Credit Over', 'Please buy more credit');
+    }
+  } catch (e) {
+    if (kDebugMode) {
+      print("The exception is $e");
+    }
+  } finally {
+    isLoading.value = false;
   }
+}
+
 
   var timeLeft = 0.obs;
   Timer? countdownTimer;

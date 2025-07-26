@@ -3,6 +3,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
 import 'package:inprep_ai/core/common/widgets/auhe_custom_textfiled.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/authentication/controller/forget_password_controller.dart';
 import 'package:inprep_ai/features/authentication/widget/custom_send_button.dart';
 
@@ -13,6 +14,7 @@ class ForgetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 65),

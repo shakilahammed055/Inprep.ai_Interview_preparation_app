@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/notification/controller/notification_controller.dart';
 import 'package:inprep_ai/features/notification/model/notification_model.dart';
 
@@ -12,7 +13,7 @@ class NotificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F6F7),
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: Text(
           'Notifications',
@@ -22,7 +23,7 @@ class NotificationScreen extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
         ),
-        backgroundColor: const Color(0xFFF6F6F7),
+        backgroundColor: AppColors.primaryColor,
         elevation: 0,
         centerTitle: true,
         foregroundColor: Colors.black,

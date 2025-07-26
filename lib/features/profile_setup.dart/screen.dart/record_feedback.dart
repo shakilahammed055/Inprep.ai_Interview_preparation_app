@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/record_controller.dart';
 
@@ -14,7 +15,7 @@ class RecordFeedback extends StatelessWidget {
   Widget build(BuildContext context) {
     debugPrint("Building RecordFeedback widget...");
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryColor,
       body: Obx(() {
         debugPrint(
           "Obx triggered, lastResponse.value: ${videoRecordingController.lastResponse.value}",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart' show getTextStyle;
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart' show IconPath;
 import 'package:inprep_ai/core/utils/constants/image_path.dart';
 import 'package:inprep_ai/features/navigationbar/screen/navigationbar_screen.dart';
@@ -16,7 +17,7 @@ class UploadResumeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFF9FAFB),
+      backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: EdgeInsets.only(
           top: 65, 

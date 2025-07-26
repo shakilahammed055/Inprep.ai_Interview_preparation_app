@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart'
     show getTextStyle;
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart' show IconPath;
 import 'package:inprep_ai/features/interview/interview_details/start_interview/controller/start_interview_controller.dart';
 import 'package:inprep_ai/features/interview/interview_details/start_interview/widget/to_improve_container.dart'
@@ -17,7 +18,7 @@ class OverAllFeedback extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryColor,
       body: Obx(() {
         final summary = controller.summary.value?.data?.assessment;
         if (summary == null) {

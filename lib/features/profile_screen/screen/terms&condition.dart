@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/profile_screen/controller/terms_controller.dart';
 
 class Termscondition extends StatelessWidget {
@@ -12,9 +13,11 @@ class Termscondition extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
+        
         title: Text('Terms & Conditions'),
-        backgroundColor: Color(0xFFF6F6F7),
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
       ),
       body: SingleChildScrollView(

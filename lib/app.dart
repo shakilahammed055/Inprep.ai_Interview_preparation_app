@@ -22,7 +22,7 @@ class Inprepai extends StatelessWidget {
           initialRoute: AppRoute.getsplashscreen(),
           getPages: AppRoute.routes,
           initialBinding: ControllerBinder(),
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.light,
           theme: AppTheme.lightTheme,
           darkTheme: AppTheme.darkTheme,
         );

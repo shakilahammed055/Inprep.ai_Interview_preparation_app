@@ -40,7 +40,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground,
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Obx(() {
           if (profileController.isLoading.value) {

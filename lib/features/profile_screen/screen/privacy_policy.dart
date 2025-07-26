@@ -4,6 +4,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -13,11 +14,10 @@ class PrivacyPolicy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
         title: const Text('Privacy Policy'),
-        backgroundColor: const Color(
-          0xFFF6F6F7,
-        ), // You can customize the app bar color
+        backgroundColor: AppColors.primaryColor, // You can customize the app bar color
         automaticallyImplyLeading: false,
         leading: Padding(
           padding: const EdgeInsets.only(left: 12),

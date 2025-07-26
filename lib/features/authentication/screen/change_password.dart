@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/widgets/custom_button.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import '../../../core/common/styles/global_text_style.dart' show getTextStyle;
 import '../../../core/common/widgets/auhe_custom_textfiled.dart'
     show AuthCustomTextField;
@@ -22,8 +23,9 @@ class ChangePassword extends StatelessWidget {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
         automaticallyImplyLeading: false,
         centerTitle: true,
         forceMaterialTransparency: true,

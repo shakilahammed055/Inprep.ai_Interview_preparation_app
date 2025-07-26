@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
+import 'package:inprep_ai/features/home_screen/controller/home_screen_controller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/profile_setupcontroller.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart';
 import 'package:inprep_ai/core/utils/constants/image_path.dart';
@@ -9,10 +11,12 @@ import 'package:inprep_ai/features/profile_setup.dart/screen.dart/profile_slider
 class ProfileSetup extends StatelessWidget {
   ProfileSetup({super.key});
   ProfileSetupController profileSetupcontroller = Get.put(ProfileSetupController());
+  HomeScreenController homeScreenController = Get.put(HomeScreenController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -21,14 +25,18 @@ class ProfileSetup extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Heading
-                Text(
-                  "Hello Russell! \nWelcome",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Color(0xff212121),
-                  ),
-                ),
+                Obx(() {
+                  // Get name from userInfo (or default "Nolan Saris" if name is null)
+                  String name = homeScreenController.userInfo.value?.data?.name ?? "Rusell";
+                  return Text(
+                    "Welcome $name! \nLet's begin your journey to a successful interview",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xff212121),
+                    ),
+                  );
+                }),
                 Align(
                   alignment: Alignment.center,
                   child: Image.asset(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
 import 'package:inprep_ai/core/controllers/job_details_controller.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/job_screens/models/all_jobs_model.dart';
 import 'package:intl/intl.dart'; // Import your model
 
@@ -16,7 +17,7 @@ class JobDetailsScreen extends StatelessWidget {
     final AllJobsModel job = Get.arguments;
 
     return Scaffold(
-      backgroundColor: Color(0xffF6F6F7),
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(16.0),

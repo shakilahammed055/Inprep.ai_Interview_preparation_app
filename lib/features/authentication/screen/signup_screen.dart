@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/routes/app_routes.dart';
 import '../../../core/common/widgets/auhe_custom_textfiled.dart'
     show AuthCustomTextField;
@@ -17,7 +18,9 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
         centerTitle: true,
         automaticallyImplyLeading: false,
         forceMaterialTransparency: true,

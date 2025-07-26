@@ -44,8 +44,6 @@ class CategoryList extends StatelessWidget {
                       data.questionBankName,
                       data.img,
                       data.duration,
-                      data.difficultyLevel,
-                      data.questionType,
                       data.description,
                       data.whatToExpect,
                       data.id,

@@ -16,7 +16,7 @@ class StartInterviewView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(title: Text('Interview Question')),
       body: Obx(() {
         if (controller.isLoading.value) {

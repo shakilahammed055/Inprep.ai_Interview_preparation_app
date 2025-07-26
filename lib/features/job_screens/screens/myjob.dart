@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/core/utils/constants/icon_path.dart';
 import 'package:inprep_ai/features/job_screens/controller/jobs_controller.dart';
 import 'package:inprep_ai/features/job_screens/screens/job_details.dart';
@@ -23,7 +24,7 @@ class MyJobsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF6F6F7),
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Column(
           children: [

@@ -5,6 +5,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/subscription/controller/subscription_controller.dart';
 import 'package:inprep_ai/features/subscription/widgets/plan_card_widget.dart';
 
@@ -23,6 +24,7 @@ class ChooseplanScreen extends StatelessWidget {
     final titleFontSize = screenWidth * 0.06;
 
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Obx(() {
           if (controller.plans.isEmpty) {

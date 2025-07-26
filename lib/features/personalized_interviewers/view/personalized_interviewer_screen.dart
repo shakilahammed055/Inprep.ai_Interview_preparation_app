@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/styles/global_text_style.dart' show getTextStyle;
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/interview/interview_details/details/view/details_view.dart' show DetailsView;
 import 'package:inprep_ai/features/personalized_interviewers/controller/personalized_interviewers_controller.dart' show PersonalizedInterviewersController;
 import 'package:inprep_ai/features/subscription/screen/chooseplan_screen.dart';
@@ -13,6 +14,7 @@ class PersonalizedInterviewerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: Padding(
         padding: EdgeInsets.only(
           top: 65,

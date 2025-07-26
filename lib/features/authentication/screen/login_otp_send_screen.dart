@@ -23,7 +23,7 @@ class LoginOtpSendScreen extends StatelessWidget {
     final String approvalToken = args['approvalToken'] ?? '';
 
     return Scaffold(
-      backgroundColor: Color(0xffF9FAFB),
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -137,6 +137,9 @@ class LoginOtpSendScreen extends StatelessWidget {
       onChanged: (value) {
         otpController.validateForm();
       },
+      textStyle: TextStyle(
+        color: Colors.black, // Set the text color to black
+      ),
     );
   }
 }

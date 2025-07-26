@@ -18,7 +18,7 @@ class ForgetPasswordOtpScreen extends StatelessWidget {
     final email = args['email'] ?? '';
 
     return Scaffold(
-      backgroundColor: const Color(0xffF9FAFB),
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

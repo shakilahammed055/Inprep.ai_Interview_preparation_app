@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inprep_ai/core/common/widgets/custom_button.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/profile_setup.dart/controller/manual_resume_controller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/screen.dart/about_me.dart';
 import 'package:inprep_ai/features/profile_setup.dart/screen.dart/education_cirtificate.dart';
@@ -80,6 +81,7 @@ class ProfileSlider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(15),

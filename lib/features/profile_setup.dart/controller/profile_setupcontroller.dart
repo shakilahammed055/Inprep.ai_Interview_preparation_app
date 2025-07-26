@@ -8,15 +8,21 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:inprep_ai/core/services/shared_preferences_helper.dart';
 import 'package:inprep_ai/core/urls/endpint.dart';
+import 'package:inprep_ai/features/home_screen/controller/home_screen_controller.dart';
 import 'package:inprep_ai/features/profile_setup.dart/models/generate_about_me.dart';
 import 'package:inprep_ai/features/profile_setup.dart/screen.dart/genarated_about_me.dart';
 import 'package:mime/mime.dart';
 
 class ProfileSetupController extends GetxController {
+  HomeScreenController homeScreenController = Get.put(HomeScreenController());
   TextEditingController cityController = TextEditingController();
   TextEditingController describeController = TextEditingController();
   TextEditingController summaryController = TextEditingController();
   TextEditingController jobTitleController = TextEditingController();
+  var userName = ''.obs;    
+  void setUserName(String name) {
+    userName.value = name;
+  }
 
   Rx<File?> selectedFile = Rx<File?>(null);
   Rx<Uint8List?> pdfPreviewImage = Rx<Uint8List?>(null);
@@ -49,14 +55,11 @@ class ProfileSetupController extends GetxController {
       EasyLoading.showError('No file selected'); // Show error with EasyLoading
       return;
     }
-
     // Show loading indicator
     EasyLoading.show(status: 'Processing...');
-
     try {
       // Retrieve the access token using SharedPreferencesHelper
       String? approvalToken = await SharedPreferencesHelper.getAccessToken();
-
       debugPrint(
         'Debug: Retrieved approvalToken: $approvalToken',
       ); // Debug print the token
@@ -147,5 +150,10 @@ class ProfileSetupController extends GetxController {
         'An error occurred while uploading the file',
       ); // Error message using EasyLoading
     }
+  }
+  @override
+  void onInit() {
+    homeScreenController.getUser();
+    super.onInit();
   }
 }

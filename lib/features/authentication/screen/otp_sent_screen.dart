@@ -16,7 +16,7 @@ class OTPScreen extends StatelessWidget {
     final String email = Get.arguments ?? '';
 
     return Scaffold(
-      backgroundColor: Color(0xffF9FAFB),
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -104,6 +104,32 @@ class OTPScreen extends StatelessWidget {
     );
   }
 
+  // Widget _buildPinCodeTextField(BuildContext context) {
+  //   return PinCodeTextField(
+  //     length: 6,
+  //     obscureText: false,
+  //     keyboardType: TextInputType.number,
+  //     pinTheme: PinTheme(
+  //       shape: PinCodeFieldShape.box,
+  //       borderRadius: BorderRadius.circular(8),
+  //       fieldHeight: 40,
+  //       fieldWidth: 40,
+  //       activeFillColor: AppColors.otpbg,
+  //       selectedFillColor: AppColors.otpbg,
+  //       inactiveFillColor: AppColors.otpbg,
+  //       inactiveColor: AppColors.otpbg,
+  //       selectedColor: AppColors.otpbg,
+  //       activeColor: AppColors.otpbg,
+  //     ),
+  //     animationDuration: const Duration(milliseconds: 300),
+  //     backgroundColor: Colors.transparent,
+  //     controller: otpController.pinController,
+  //     appContext: context,
+  //     onChanged: (value) {
+  //       otpController.validateForm();
+  //     },
+  //   );
+  // }
   Widget _buildPinCodeTextField(BuildContext context) {
     return PinCodeTextField(
       length: 6,
@@ -128,6 +154,10 @@ class OTPScreen extends StatelessWidget {
       onChanged: (value) {
         otpController.validateForm();
       },
+      // Set text style to modify text input color and other properties
+      textStyle: TextStyle(
+        color: Colors.black, // Set the text color to black
+      ),
     );
   }
 }

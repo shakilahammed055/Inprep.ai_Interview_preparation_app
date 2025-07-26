@@ -2,6 +2,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inprep_ai/core/utils/constants/colors.dart';
 import 'package:inprep_ai/features/authentication/controller/login_screen_controller.dart';
 import 'package:inprep_ai/features/authentication/screen/forget_password_screen.dart'
     show ForgetPasswordScreen;
@@ -20,8 +21,9 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.primaryColor,
       appBar: AppBar(
+        backgroundColor: AppColors.primaryColor,
         automaticallyImplyLeading: false,
         centerTitle: true,
         forceMaterialTransparency: true,

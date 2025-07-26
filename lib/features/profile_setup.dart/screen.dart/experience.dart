@@ -17,6 +17,7 @@ class Experience extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: Obx(() {
           // Show loading indicator if skills are empty (optional)

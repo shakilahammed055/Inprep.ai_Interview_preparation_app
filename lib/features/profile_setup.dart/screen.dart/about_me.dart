@@ -23,6 +23,7 @@ class AboutMe extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(10),
@@ -95,6 +96,7 @@ class AboutMe extends StatelessWidget {
               Obx(() {
                 return DropdownButtonFormField<String>(
                   decoration: const InputDecoration(
+                    
                     border: OutlineInputBorder(),
                   ),
                   items: controller.skills.map((skill) {
